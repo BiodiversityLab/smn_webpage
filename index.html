@@ -1,17 +1,399 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Site</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Swedish Metabarcoding Network</title>
+  <meta name="description" content="A community hub for metabarcoding in Sweden — protocols, training, data publishing, and collaboration. Funded by SciLifeLab." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+  <!-- Ambient background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Swedish Metabarcoding Network home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <span class="brand-title">Swedish Metabarcoding Network</span>
+          <span class="brand-subtitle">Funded by SciLifeLab</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
+
+        <div class="nav-menu" id="navMenu">
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#focus">Focus</a>
+          <a class="nav-link" href="#resources">Resources</a>
+          <a class="nav-link" href="#events">Events</a>
+          <a class="nav-link" href="#contact">Contact</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+            <span class="theme-icon" aria-hidden="true">◐</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Hello 👋</h1>
-    <p>This site is live.</p>
-    <button id="btn">Click me</button>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="pill">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Community • Protocols • Data publishing • Training</span>
+          </div>
+
+          <h1>
+            A national hub for <span class="gradient-text">metabarcoding</span> collaboration in Sweden
+          </h1>
+
+          <p class="lead">
+            Connecting researchers, infrastructure, and best practices for eDNA/metabarcoding —
+            from study design and lab workflows to bioinformatics and FAIR publishing.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#join">Join the network</a>
+            <a class="btn btn-secondary" href="#resources">Explore resources</a>
+          </div>
+
+          <div class="mini-stats" role="list" aria-label="Highlights">
+            <div class="stat-card" role="listitem">
+              <div class="stat-number" data-count-to="50">0</div>
+              <div class="stat-label">active collaborators</div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-number" data-count-to="12">0</div>
+              <div class="stat-label">shared protocols</div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-number" data-count-to="20">0</div>
+              <div class="stat-label">training sessions</div>
+            </div>
+          </div>
+
+          <p class="fineprint">
+            Replace the numbers above with your real metrics (they animate automatically).
+          </p>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="glass-card">
+            <div class="card-top">
+              <div class="badge">Featured</div>
+              <div class="chip">SBDI • BioAtlas • DNA sequences</div>
+            </div>
+
+            <h2>ASV Portal (SBDI)</h2>
+            <p>
+              Explore and share DNA sequences and species occurrences derived from metabarcoding (eDNA) studies.
+            </p>
+
+            <div class="card-actions">
+              <a class="btn btn-primary btn-wide" href="https://asv-portal.biodiversitydata.se/" target="_blank" rel="noopener noreferrer">
+                Open ASV portal
+              </a>
+              <a class="btn btn-ghost btn-wide" href="#resources">
+                How to publish data →
+              </a>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="logos">
+              <div class="logo-item" title="SciLifeLab">
+                <span class="logo-dot"></span><span>SciLifeLab</span>
+              </div>
+              <div class="logo-item" title="SBDI">
+                <span class="logo-dot"></span><span>SBDI</span>
+              </div>
+              <div class="logo-item" title="Swedish Metabarcoding Network">
+                <span class="logo-dot"></span><span>SMN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#about" aria-label="Scroll to About section">
+        <span class="scroll-line" aria-hidden="true"></span>
+        <span class="scroll-text">Scroll</span>
+      </a>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>About the network</h2>
+          <p>
+            The Swedish Metabarcoding Network supports coordination, knowledge sharing, and harmonized approaches
+            for metabarcoding across environments and taxa. The network is funded by SciLifeLab.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="feature-card reveal">
+            <h3>Shared best practices</h3>
+            <p>Guidelines for sampling, contamination control, marker choice, reference databases, and reporting.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3>Interoperable data</h3>
+            <p>Promote FAIR workflows and publishing via national infrastructure like SBDI and the ASV portal.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3>Training & community</h3>
+            <p>Workshops, office hours, and peer support across lab, bioinformatics, and data management.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOCUS -->
+    <section class="section section-alt" id="focus">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>What we focus on</h2>
+          <p>Four pillars that help move projects from “reads” to “reusable biodiversity knowledge.”</p>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar reveal">
+            <div class="pillar-icon" aria-hidden="true">🧪</div>
+            <h3>Wet-lab workflows</h3>
+            <p>Sampling design, extraction, primers, controls, indexing strategy, and QC.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar-icon" aria-hidden="true">🧬</div>
+            <h3>Bioinformatics</h3>
+            <p>Denoising, ASVs/OTUs, chimera handling, taxonomy, and reproducible pipelines.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar-icon" aria-hidden="true">🗃️</div>
+            <h3>FAIR data & publishing</h3>
+            <p>Metadata, standards, archiving, and publication pathways into national infrastructure.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar-icon" aria-hidden="true">🤝</div>
+            <h3>Coordination</h3>
+            <p>Working groups, cross-site harmonization, and shared protocol libraries.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="section" id="resources">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Resources</h2>
+          <p>Quick access to key tools and guidance for metabarcoding projects in Sweden.</p>
+        </div>
+
+        <div class="resource-grid">
+          <a class="resource-tile reveal" href="https://asv-portal.biodiversitydata.se/" target="_blank" rel="noopener noreferrer">
+            <div class="resource-top">
+              <span class="resource-tag">SBDI</span>
+              <span class="resource-icon" aria-hidden="true">🔎</span>
+            </div>
+            <h3>ASV portal</h3>
+            <p>Search, submit, and download ASV occurrence datasets connected to SBDI BioAtlas.</p>
+            <span class="resource-link">Open →</span>
+          </a>
+
+          <a class="resource-tile reveal" href="https://biodiversitydata.se/" target="_blank" rel="noopener noreferrer">
+            <div class="resource-top">
+              <span class="resource-tag">SBDI</span>
+              <span class="resource-icon" aria-hidden="true">🧭</span>
+            </div>
+            <h3>SBDI</h3>
+            <p>National infrastructure for open and FAIR biodiversity data, tools, and taxonomies.</p>
+            <span class="resource-link">Visit →</span>
+          </a>
+
+          <a class="resource-tile reveal" href="https://www.scilifelab.se/" target="_blank" rel="noopener noreferrer">
+            <div class="resource-top">
+              <span class="resource-tag">SciLifeLab</span>
+              <span class="resource-icon" aria-hidden="true">🏛️</span>
+            </div>
+            <h3>SciLifeLab</h3>
+            <p>Sweden’s national research infrastructure for life science technologies and expertise.</p>
+            <span class="resource-link">Learn more →</span>
+          </a>
+
+          <a class="resource-tile reveal" href="#contact">
+            <div class="resource-top">
+              <span class="resource-tag">Network</span>
+              <span class="resource-icon" aria-hidden="true">📬</span>
+            </div>
+            <h3>Get support</h3>
+            <p>Point people to your preferred support channel (email, form, Slack, etc.).</p>
+            <span class="resource-link">Contact →</span>
+          </a>
+        </div>
+
+        <div class="callout reveal" id="join">
+          <div class="callout-text">
+            <h3>Want to contribute?</h3>
+            <p>
+              Share protocols, propose working groups, or help coordinate training.
+              Add your membership/interest form link below.
+            </p>
+          </div>
+          <div class="callout-actions">
+            <!-- Replace the href with your real signup form -->
+            <a class="btn btn-primary" href="#" aria-disabled="true" onclick="return false;">Membership form (add link)</a>
+            <a class="btn btn-secondary" href="#events">Upcoming events</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section section-alt" id="events">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Events & training</h2>
+          <p>Add your next workshops, office hours, and webinars here.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="event reveal">
+            <div class="event-date">
+              <span class="event-day">TBA</span>
+              <span class="event-month">2026</span>
+            </div>
+            <div class="event-body">
+              <h3>Publishing metabarcoding output to SBDI / ASV portal</h3>
+              <p>Walk-through of metadata, submission, and downstream reuse.</p>
+              <div class="event-meta">
+                <span class="meta-pill">Online</span>
+                <span class="meta-pill">Hands-on</span>
+              </div>
+            </div>
+            <div class="event-actions">
+              <a class="btn btn-ghost" href="#" aria-disabled="true" onclick="return false;">Add registration link</a>
+            </div>
+          </article>
+
+          <article class="event reveal">
+            <div class="event-date">
+              <span class="event-day">TBA</span>
+              <span class="event-month">2026</span>
+            </div>
+            <div class="event-body">
+              <h3>Primer/marker selection clinic</h3>
+              <p>Community discussion of markers, biases, reference databases, and reporting standards.</p>
+              <div class="event-meta">
+                <span class="meta-pill">Hybrid</span>
+                <span class="meta-pill">Discussion</span>
+              </div>
+            </div>
+            <div class="event-actions">
+              <a class="btn btn-ghost" href="#" aria-disabled="true" onclick="return false;">Add details link</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Contact</h2>
+          <p>Set your official network email and/or add a support form link.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <h3>Network email</h3>
+            <p class="muted">Replace with your real contact address.</p>
+            <p class="contact-line">
+              <span aria-hidden="true">✉️</span>
+              <a href="mailto:metabarcoding-network@yourdomain.se">metabarcoding-network@yourdomain.se</a>
+            </p>
+            <p class="contact-line">
+              <span aria-hidden="true">🔗</span>
+              <a href="https://asv-portal.biodiversitydata.se/" target="_blank" rel="noopener noreferrer">ASV portal (SBDI)</a>
+            </p>
+          </div>
+
+          <form class="contact-form reveal" onsubmit="return window.SMN.handleFakeSubmit(event);">
+            <h3>Quick message</h3>
+            <p class="muted">This demo form doesn’t send email. Wire it to your backend or a form provider.</p>
+
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" placeholder="Your name" required />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" placeholder="you@university.se" required />
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
+            </label>
+
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-note" id="formNote" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="brand small">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">
+            <span class="brand-title">Swedish Metabarcoding Network</span>
+            <span class="brand-subtitle">Funded by SciLifeLab</span>
+          </span>
+        </div>
+        <p class="muted">
+          Built to help the Swedish metabarcoding community share knowledge, harmonize practice, and publish FAIR data.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <a href="#top" class="footer-link">Back to top ↑</a>
+        <a href="https://www.scilifelab.se/" target="_blank" rel="noopener noreferrer" class="footer-link">SciLifeLab</a>
+        <a href="https://biodiversitydata.se/" target="_blank" rel="noopener noreferrer" class="footer-link">SBDI</a>
+        <a href="https://asv-portal.biodiversitydata.se/" target="_blank" rel="noopener noreferrer" class="footer-link">ASV portal</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span class="muted">© <span id="year"></span> Swedish Metabarcoding Network</span>
+      <span class="muted">•</span>
+      <span class="muted">Design template — customize freely</span>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
