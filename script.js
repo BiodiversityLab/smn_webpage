@@ -1,134 +1,148 @@
-/* Swedish Metabarcoding Network landing page JS
-   - mobile nav toggle
-   - theme toggle (persists in localStorage)
-   - reveal-on-scroll animations
-   - animated counters
-   - demo contact form handler
-*/
-
 (function () {
   const root = document.documentElement;
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ---------- Theme ----------
+  // --- Mobile menu ---
+  const toggleBtn = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector("#nav-links");
+
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("is-open");
+      toggleBtn.setAttribute("aria-expanded", String(open));
+    });
+
+    // Close menu after clicking a link (mobile)
+    navLinks.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (!a) return;
+      navLinks.classList.remove("is-open");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      navLinks.classList.remove("is-open");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  // --- Theme toggle (persisted) ---
+  const themeBtn = document.querySelector(".theme-toggle");
   const THEME_KEY = "smn_theme";
-  const themeToggle = document.querySelector(".theme-toggle");
 
   function setTheme(theme) {
     if (theme === "light") root.setAttribute("data-theme", "light");
     else root.removeAttribute("data-theme");
+
     localStorage.setItem(THEME_KEY, theme);
+    if (themeBtn) {
+      themeBtn.querySelector(".theme-icon").textContent = theme === "light" ? "☀" : "☾";
+    }
   }
 
-  function getPreferredTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved) return saved;
+  // Initialize theme: saved > system preference
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else {
     const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-    return prefersLight ? "light" : "dark";
+    setTheme(prefersLight ? "light" : "dark");
   }
 
-  setTheme(getPreferredTheme());
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const isLight = root.getAttribute("data-theme") === "light";
-      setTheme(isLight ? "dark" : "light");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+      setTheme(current === "light" ? "dark" : "light");
     });
   }
 
-  // ---------- Mobile nav ----------
-  const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.querySelector(".nav-menu");
-  const navLinks = document.querySelectorAll(".nav-link");
+  // --- Active nav link highlighting ---
+  const sectionIds = ["about", "activities", "resources", "join", "contact"];
+  const navAnchors = Array.from(document.querySelectorAll(".nav-link"));
 
-  function closeMenu() {
-    if (!navMenu || !navToggle) return;
-    navMenu.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-  }
+  const sectionEls = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
 
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", () => {
-      const isOpen = navMenu.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-    });
-
-    // Close menu when clicking a link
-    navLinks.forEach((link) => link.addEventListener("click", closeMenu));
-
-    // Close menu when clicking outside
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (!target) return;
-      const clickedInside = navMenu.contains(target) || navToggle.contains(target);
-      if (!clickedInside) closeMenu();
-    });
-
-    // Close on escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-  }
-
-  // ---------- Reveal on scroll ----------
-  const reveals = Array.from(document.querySelectorAll(".reveal"));
-  const revealObserver = new IntersectionObserver(
+  const observerNav = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navAnchors.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+      });
+    },
+    { root: null, threshold: 0.35 }
+  );
+
+  sectionEls.forEach((el) => observerNav.observe(el));
+
+  // --- Reveal-on-scroll ---
+  const revealEls = document.querySelectorAll(".reveal");
+  const observerReveal = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observerReveal.unobserve(entry.target);
       });
     },
     { threshold: 0.12 }
   );
+  revealEls.forEach((el) => observerReveal.observe(el));
 
-  reveals.forEach((el) => revealObserver.observe(el));
+  // --- Footer year ---
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
 
-  // ---------- Animated counters ----------
-  const counters = Array.from(document.querySelectorAll("[data-count-to]"));
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = Number(el.getAttribute("data-count-to") || "0");
-        animateCount(el, target, 900);
-        counterObserver.unobserve(el);
-      });
-    },
-    { threshold: 0.35 }
-  );
+  // --- Demo form (no backend): friendly message only ---
+  const form = document.getElementById("interestForm");
+  const note = document.getElementById("formNote");
 
-  counters.forEach((el) => counterObserver.observe(el));
+  if (form && note) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const email = (data.get("email") || "").toString().trim();
+      const interest = (data.get("interest") || "").toString();
 
-  function animateCount(el, target, durationMs) {
-    const start = 0;
-    const startTime = performance.now();
+      if (!email) {
+        note.textContent = "Please add an email address so we can follow up.";
+        return;
+      }
 
-    function tick(now) {
-      const t = Math.min(1, (now - startTime) / durationMs);
-      // easeOutCubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      const value = Math.round(start + (target - start) * eased);
-      el.textContent = String(value);
-      if (t < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
+      const msg = `Thanks! We’ll follow up at ${email}${interest ? ` about “${interest}”.` : "."} (Demo: no data is sent anywhere.)`;
+      note.textContent = msg;
+      form.reset();
+    });
   }
 
-  // ---------- Demo contact form ----------
-  window.SMN = window.SMN || {};
-  window.SMN.handleFakeSubmit = function (event) {
-    event.preventDefault();
-    const note = document.getElementById("formNote");
-    if (note) {
-      note.textContent = "Thanks! This demo form doesn’t send email yet — connect it to your backend or form provider.";
-    }
-    return false;
-  };
+  // --- “Copy example card” button ---
+  const copyBtn = document.getElementById("copyExampleBtn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      const snippet =
+`<!-- Example resource card -->
+<article class="resource reveal">
+  <div>
+    <h3>Protocol repository</h3>
+    <p>Link to SOPs, sample handling notes, lab controls, and reporting templates.</p>
+  </div>
+  <div class="resource-actions">
+    <a class="btn btn-primary" href="https://example.org" target="_blank" rel="noopener">Open</a>
+    <a class="btn btn-ghost" href="https://github.com/example" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</article>`;
+
+      try {
+        await navigator.clipboard.writeText(snippet);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy example card"), 1200);
+      } catch {
+        // Clipboard may fail on some contexts; fall back to prompt
+        window.prompt("Copy this snippet:", snippet);
+      }
+    });
+  }
 })();
