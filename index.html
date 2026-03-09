@@ -9,54 +9,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css"/>
-    <style>
-        .brand-logo {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-right: 12px;
-            border-radius: 8px;
-        }
-
-        body {
-            background: linear-gradient(135deg, rgba(34, 139, 34, 0.05) 0%, rgba(46, 125, 50, 0.03) 100%);
-        }
-
-        .bg-orbs .orb-1 {
-            background: radial-gradient(circle at center, rgba(76, 175, 80, 0.15) 0%, transparent 70%);
-        }
-
-        .bg-orbs .orb-2 {
-            background: radial-gradient(circle at center, rgba(139, 195, 74, 0.12) 0%, transparent 70%);
-        }
-
-        .bg-orbs .orb-3 {
-            background: radial-gradient(circle at center, rgba(102, 187, 106, 0.1) 0%, transparent 70%);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .pillar-icon {
-            font-size: 3rem;
-            filter: hue-rotate(20deg) saturate(1.2);
-        }
-
-        .resource-icon {
-            filter: hue-rotate(20deg);
-        }
-
-        .section-alt {
-            background: linear-gradient(to bottom, rgba(76, 175, 80, 0.02) 0%, rgba(139, 195, 74, 0.02) 100%);
-        }
-    </style>
 </head>
 
 <body>
@@ -70,10 +26,10 @@
 <header class="site-header" id="top">
     <div class="container header-inner">
         <a class="brand" href="#top" aria-label="Swedish Metabarcoding Network home">
-            <img src="files/photo.jpg" alt="Biodiversity" class="brand-logo"/>
+            <img src="files/malaise_trap.jpeg" alt="Malaise trap in a biodiversity field site" class="brand-logo"/>
             <span class="brand-text">
           <span class="brand-title">Swedish Metabarcoding Network</span>
-          <span class="brand-subtitle">Funded by SciLifeLab</span>
+          <span class="brand-subtitle">Biodiversity genomics for nature monitoring</span>
         </span>
         </a>
 
@@ -104,16 +60,16 @@
             <div class="hero-copy reveal">
                 <div class="pill">
                     <span class="dot" aria-hidden="true"></span>
-                    <span>Community • Protocols • Data publishing • Training</span>
+                    <span>Field ecology • Community science • Open biodiversity data</span>
                 </div>
 
                 <h1>
-                    A national hub for <span class="gradient-text">metabarcoding</span> collaboration in Sweden
+                    Biodiversity insight at <span class="gradient-text">ecosystem scale</span> with metabarcoding
                 </h1>
 
                 <p class="lead">
-                    Connecting researchers, infrastructure, and best practices for eDNA/metabarcoding —
-                    from study design and lab workflows to bioinformatics and FAIR publishing.
+                    The Swedish Metabarcoding Network connects field teams, molecular labs, and informatics
+                    specialists to track species, habitats, and ecological change across Sweden.
                 </p>
 
                 <div class="cta-row">
@@ -124,15 +80,15 @@
                 <div class="mini-stats" role="list" aria-label="Highlights">
                     <div class="stat-card" role="listitem">
                         <div class="stat-number" data-count-to="44">0</div>
-                        <div class="stat-label">active collaborators</div>
+                        <div class="stat-label">active biodiversity partners</div>
                     </div>
                     <div class="stat-card" role="listitem">
                         <div class="stat-number" data-count-to="12">0</div>
-                        <div class="stat-label">shared protocols</div>
+                        <div class="stat-label">ecosystem-ready protocols</div>
                     </div>
                     <div class="stat-card" role="listitem">
                         <div class="stat-number" data-count-to="20">0</div>
-                        <div class="stat-label">training sessions</div>
+                        <div class="stat-label">training events</div>
                     </div>
                 </div>
 
@@ -144,8 +100,8 @@
             <div class="hero-card reveal">
                 <div class="glass-card">
                     <div class="card-top">
-                        <div class="badge">Featured</div>
-                        <div class="chip">SBDI • BioAtlas • DNA sequences</div>
+                        <div class="badge">Biodiversity data</div>
+                        <div class="chip">SBDI • BioAtlas • eDNA records</div>
                     </div>
 
                     <h2>ASV Portal (SBDI)</h2>
@@ -193,23 +149,22 @@
             <div class="section-head reveal">
                 <h2>About the network</h2>
                 <p>
-                    The Swedish Metabarcoding Network supports coordination, knowledge sharing, and harmonized
-                    approaches
-                    for metabarcoding across environments and taxa. The network is funded by SciLifeLab.
+                    We support harmonized metabarcoding practices across terrestrial, freshwater, and marine
+                    environments so biodiversity observations become comparable, reproducible, and reusable.
                 </p>
             </div>
 
             <div class="cards-grid">
                 <article class="feature-card reveal">
                     <h3>Shared best practices</h3>
-                    <p>Guidelines for sampling, contamination control, marker choice, reference databases, and
-                        reporting.</p>
+                    <p>Guidance for sampling design, contamination control, marker choice, reference matching, and
+                        transparent reporting.</p>
                 </article>
 
                 <article class="feature-card reveal">
                     <h3>Interoperable data</h3>
-                    <p>Promote FAIR workflows and publishing via national infrastructure like SBDI and the ASV
-                        portal.</p>
+                    <p>FAIR workflows that turn local observations into interoperable biodiversity records through SBDI
+                        and ASV portal pipelines.</p>
                 </article>
 
                 <article class="feature-card reveal">
@@ -225,14 +180,14 @@
         <div class="container">
             <div class="section-head reveal">
                 <h2>What we focus on</h2>
-                <p>Four pillars that help move projects from "reads" to "reusable biodiversity knowledge."</p>
+                <p>Four pillars that move projects from raw reads to trusted biodiversity knowledge.</p>
             </div>
 
             <div class="pillars">
                 <div class="pillar reveal">
                     <div class="pillar-icon" aria-hidden="true">🧪</div>
                     <h3>Wet-lab workflows</h3>
-                    <p>Sampling design, extraction, primers, controls, indexing strategy, and QC.</p>
+                    <p>Field-to-lab workflows for samples, controls, primer choice, indexing, and robust QC.</p>
                 </div>
                 <div class="pillar reveal">
                     <div class="pillar-icon" aria-hidden="true">🧬</div>
@@ -247,7 +202,7 @@
                 <div class="pillar reveal">
                     <div class="pillar-icon" aria-hidden="true">🤝</div>
                     <h3>Coordination</h3>
-                    <p>Working groups, cross-site harmonization, and shared protocol libraries.</p>
+                    <p>Cross-site coordination, shared protocol libraries, and national biodiversity roadmapping.</p>
                 </div>
             </div>
         </div>
@@ -329,7 +284,7 @@
         <div class="container">
             <div class="section-head reveal">
                 <h2>Events & training</h2>
-                <p>Add your next workshops, office hours, and webinars here.</p>
+                <p>Training sessions focused on biodiversity monitoring, methods, and data publishing.</p>
             </div>
 
             <div class="timeline">

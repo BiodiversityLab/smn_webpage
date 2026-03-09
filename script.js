@@ -14,11 +14,13 @@
   // ---------- Theme ----------
   const THEME_KEY = "smn_theme";
   const themeToggle = document.querySelector(".theme-toggle");
+  const themeIcon = document.querySelector(".theme-icon");
 
   function setTheme(theme) {
     if (theme === "light") root.setAttribute("data-theme", "light");
     else root.removeAttribute("data-theme");
     localStorage.setItem(THEME_KEY, theme);
+    updateThemeToggleIcon(theme);
   }
 
   function getPreferredTheme() {
@@ -26,6 +28,14 @@
     if (saved) return saved;
     const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
     return prefersLight ? "light" : "dark";
+  }
+
+  function updateThemeToggleIcon(theme) {
+    if (!themeIcon || !themeToggle) return;
+    const isLight = theme === "light";
+    themeIcon.textContent = isLight ? "🌙" : "☀";
+    themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+    themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
   }
 
   setTheme(getPreferredTheme());
@@ -131,4 +141,37 @@
     }
     return false;
   };
+
+  // ---------- Subtle biodiversity motion ----------
+  const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const orbEls = Array.from(document.querySelectorAll(".bg-orbs .orb"));
+  if (!prefersReducedMotion && orbEls.length > 0) {
+    let pointerX = 0;
+    let pointerY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    document.addEventListener("pointermove", (event) => {
+      const halfW = window.innerWidth / 2;
+      const halfH = window.innerHeight / 2;
+      targetX = (event.clientX - halfW) / halfW;
+      targetY = (event.clientY - halfH) / halfH;
+    });
+
+    function animateOrbs() {
+      pointerX += (targetX - pointerX) * 0.035;
+      pointerY += (targetY - pointerY) * 0.035;
+
+      orbEls.forEach((orb, index) => {
+        const depth = (index + 1) * 6;
+        const x = pointerX * depth;
+        const y = pointerY * depth;
+        orb.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+
+      requestAnimationFrame(animateOrbs);
+    }
+
+    requestAnimationFrame(animateOrbs);
+  }
 })();
