@@ -1,9 +1,9 @@
 /* Swedish Metabarcoding Network landing page JS
-   - mobile nav toggle
-   - theme toggle (persists in localStorage)
-   - reveal-on-scroll animations
-   - animated counters
-   - demo contact form handler
+  - mobile nav toggle
+  - theme toggle (persists in localStorage)
+  - reveal-on-scroll animations
+  - animated counters
+  - contact form mailto handler
 */
 
 (function () {
@@ -131,14 +131,57 @@
     requestAnimationFrame(tick);
   }
 
-  // ---------- Demo contact form ----------
+  // ---------- Contact form ----------
   window.SMN = window.SMN || {};
+  const contactRecipient = "linus-finn.lassen.6588@student.uu.se";
+  const contactEndpoint = "https://formsubmit.co/ajax/linus-finn.lassen.6588@student.uu.se";
   window.SMN.handleFakeSubmit = function (event) {
     event.preventDefault();
+
+    const form = event.target;
     const note = document.getElementById("formNote");
+    const formData = new FormData(form);
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+
     if (note) {
-      note.textContent = "Thanks! This demo form doesn’t send email yet — connect it to your backend or form provider.";
+      note.textContent = "Sending message...";
     }
+
+    fetch(contactEndpoint, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name || "(not provided)",
+        email: email || "(not provided)",
+        message: message || "(no message)",
+        _subject: `SMN Quick Message${name ? ` from ${name}` : ""}`,
+        _replyto: email || contactRecipient,
+        _captcha: "false",
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+        return response.json();
+      })
+      .then(() => {
+        if (note) {
+          note.textContent = "Message sent successfully.";
+        }
+        form.reset();
+      })
+      .catch(() => {
+        if (note) {
+          note.textContent = `Could not send automatically. Please email ${contactRecipient}.`;
+        }
+      });
+
     return false;
   };
 
