@@ -516,6 +516,10 @@ section[id]{
   scroll-margin-top: calc(var(--header-h) + 14px);
 }
 
+#asv-uploading{
+  scroll-margin-top: calc(var(--header-h) + 18px);
+}
+
 #tutorials,
 #event-edna-sbdi{
   scroll-margin-top: calc(var(--header-h) - 4px);
