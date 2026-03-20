@@ -1,9 +1,10 @@
 /* Swedish Metabarcoding Network landing page JS
   - mobile nav toggle
   - theme toggle (persists in localStorage)
+  - partner logo auto-loader from link domains
   - reveal-on-scroll animations
   - animated counters
-  - contact form mailto handler
+  - contact form direct-send handler
 */
 
 (function () {
@@ -34,6 +35,7 @@
     if (!themeIcon || !themeToggle) return;
     const isLight = theme === "light";
     themeIcon.textContent = isLight ? "🌙" : "☀";
+    themeToggle.setAttribute("data-icon", isLight ? "moon" : "sun");
     themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
     themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
   }
@@ -81,6 +83,97 @@
       if (e.key === "Escape") closeMenu();
     });
   }
+
+  // ---------- Partner logos from partner links ----------
+  function addPartnerLogosFromLinks() {
+    const partnerLinks = Array.from(document.querySelectorAll(".partner-link"));
+
+    partnerLinks.forEach((link) => {
+      if (link.querySelector(".partner-logo")) return;
+
+      let domain = "";
+      try {
+        domain = new URL(link.href).hostname.replace(/^www\./i, "");
+      } catch {
+        return;
+      }
+
+      const linkText = link.textContent ? link.textContent.trim() : "";
+      const logo = document.createElement("img");
+      const text = document.createElement("span");
+
+      logo.className = "partner-logo";
+      logo.alt = "";
+      logo.setAttribute("aria-hidden", "true");
+      logo.loading = "lazy";
+
+      const manualLogoUrl = link.getAttribute("data-logo-url") || "";
+      const clearbitLogoUrl = `https://logo.clearbit.com/${domain}`;
+      const directFaviconUrl = `https://${domain}/favicon.ico`;
+      const faviconFallbackUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
+
+      const logoCandidates = [];
+      if (manualLogoUrl) logoCandidates.push(manualLogoUrl);
+      logoCandidates.push(clearbitLogoUrl, directFaviconUrl, faviconFallbackUrl);
+
+      let currentCandidateIndex = 0;
+      logo.src = logoCandidates[currentCandidateIndex];
+      logo.addEventListener("error", () => {
+        currentCandidateIndex += 1;
+        if (currentCandidateIndex >= logoCandidates.length) return;
+        logo.src = logoCandidates[currentCandidateIndex];
+      });
+
+      text.className = "partner-link-text";
+      text.textContent = linkText;
+
+      link.textContent = "";
+      link.append(logo, text);
+    });
+  }
+
+  function addResourceLogosFromLinks() {
+    const resourceLinks = Array.from(document.querySelectorAll(".resource-logo-link"));
+
+    resourceLinks.forEach((link) => {
+      const top = link.querySelector(".resource-top");
+      if (!top || top.querySelector(".resource-logo")) return;
+
+      let domain = "";
+      try {
+        domain = new URL(link.href).hostname.replace(/^www\./i, "");
+      } catch {
+        return;
+      }
+
+      const logo = document.createElement("img");
+      logo.className = "resource-logo";
+      logo.alt = "";
+      logo.setAttribute("aria-hidden", "true");
+      logo.loading = "lazy";
+
+      const clearbitLogoUrl = `https://logo.clearbit.com/${domain}`;
+      const faviconFallbackUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
+
+      logo.src = clearbitLogoUrl;
+      logo.addEventListener("error", () => {
+        if (logo.dataset.fallbackApplied === "1") return;
+        logo.dataset.fallbackApplied = "1";
+        logo.src = faviconFallbackUrl;
+      });
+
+      const title = top.querySelector("h3");
+      if (title) {
+        top.insertBefore(logo, title);
+      } else {
+        top.textContent = "";
+        top.append(logo);
+      }
+    });
+  }
+
+  addPartnerLogosFromLinks();
+  addResourceLogosFromLinks();
 
   // ---------- Reveal on scroll ----------
   const reveals = Array.from(document.querySelectorAll(".reveal"));
@@ -185,36 +278,4 @@
     return false;
   };
 
-  // ---------- Subtle biodiversity motion ----------
-  const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const orbEls = Array.from(document.querySelectorAll(".bg-orbs .orb"));
-  if (!prefersReducedMotion && orbEls.length > 0) {
-    let pointerX = 0;
-    let pointerY = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    document.addEventListener("pointermove", (event) => {
-      const halfW = window.innerWidth / 2;
-      const halfH = window.innerHeight / 2;
-      targetX = (event.clientX - halfW) / halfW;
-      targetY = (event.clientY - halfH) / halfH;
-    });
-
-    function animateOrbs() {
-      pointerX += (targetX - pointerX) * 0.035;
-      pointerY += (targetY - pointerY) * 0.035;
-
-      orbEls.forEach((orb, index) => {
-        const depth = (index + 1) * 6;
-        const x = pointerX * depth;
-        const y = pointerY * depth;
-        orb.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      });
-
-      requestAnimationFrame(animateOrbs);
-    }
-
-    requestAnimationFrame(animateOrbs);
-  }
 })();
