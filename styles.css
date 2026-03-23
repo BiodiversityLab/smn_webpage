@@ -282,8 +282,8 @@ p{ line-height:1.55; }
 }
 .hero-photo{
   margin: 8px 0 0;
-  flex: 0 0 clamp(180px, 18vw, 230px);
-  width: clamp(180px, 18vw, 230px);
+  flex: 0 0 210px;
+  width: 210px;
   align-self: start;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.22);
