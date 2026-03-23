@@ -271,18 +271,20 @@ p{ line-height:1.55; }
 }
 .hero-title-wrap{
   display:grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
-  gap: 16px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 360px);
+  gap: 24px;
+  align-items: stretch;
 }
 .hero-title-copy{ display: grid; gap: 8px; align-content: start; }
 .hero-photo{
   margin: 8px 0 0;
+  width: 100%;
+  min-height: 100%;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.22);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
 }
 .hero-photo img{
   width: 100%;
