@@ -270,24 +270,28 @@ p{ line-height:1.55; }
   padding-bottom: 0.06em;
 }
 .hero-title-wrap{
-  display:grid;
-  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 360px);
+  display:flex;
   gap: 24px;
   align-items: stretch;
 }
-.hero-title-copy{ display: grid; gap: 8px; align-content: start; }
+.hero-title-copy{
+  flex: 1 1 0;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
 .hero-photo{
   margin: 8px 0 0;
-  width: 100%;
-  min-height: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  align-self: stretch;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.22);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  aspect-ratio: 4 / 5;
 }
 .hero-photo img{
-  width: 100%;
+  width: auto;
   height: 100%;
   object-fit: cover;
   display:block;
@@ -1003,7 +1007,10 @@ input:focus, textarea:focus{ box-shadow: var(--focus); }
   .hero-grid{ gap: 48px; }
   .hero-card::before{ top: -24px; }
   .hero-card .glass-card{ position: relative; top: 0; }
-  .hero-title-wrap{ grid-template-columns: 1fr; }
+  .hero-title-wrap{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
   .cta-row{ grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 14px; }
   .mini-stats{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .asv-advantages ol{ grid-template-columns: 1fr; }
@@ -1016,6 +1023,10 @@ input:focus, textarea:focus{ box-shadow: var(--focus); }
   .hero-photo{
     max-width: 300px;
     margin: 0;
+  }
+  .hero-photo img{
+    width: 100%;
+    height: auto;
   }
   .cards-grid{ grid-template-columns: 1fr; }
   .pillars{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
