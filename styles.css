@@ -860,7 +860,8 @@ section[id]{
 .event-body a{ text-decoration: underline; text-underline-offset: 3px; }
 .event-meta-text{ margin: 0; color: var(--muted2); font-weight: 700; font-size: 13px; }
 
-.event-actions{ display:flex; justify-content:flex-end; }
+.event-actions{ display:flex; justify-content:flex-end; flex-wrap: wrap; gap: 8px; }
+.event-actions .btn{ white-space: nowrap; }
 
 /* ---------- Contact ---------- */
 .contact-grid{
